@@ -46,7 +46,11 @@ const SleepTracker = () => {
     
     // Hackathon Trigger: Alert if sleep is under 5 hours (300 mins)
     if (diffMins < 300) {
-      window.alert("Sleep debt detected (< 5 hours). Should we check your academic schedule?");
+      if (localStorage.getItem('has_upcoming_exam') === 'true') {
+        window.alert("Sleep debt detected. You have a big day tomorrow! Science suggests 7+ hours of sleep will improve your memory recall by 20%.");
+      } else {
+        window.alert("Sleep debt detected (< 5 hours). Should we check your academic schedule?");
+      }
     }
   };
 
