@@ -90,6 +90,24 @@
             grid-template-columns: repeat(12, 1fr);
             gap: 1.5rem;
         }
+        
+        .tilt-element {
+            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+        }
+        
+        .cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(68, 216, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 100;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+            transition: width 0.3s, height 0.3s;
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
@@ -98,20 +116,49 @@
 <div class="flex items-center gap-8">
 <span class="text-xl font-bold tracking-tight text-[#44d8f1] font-headline">Mentor Portal</span>
 <nav class="hidden md:flex gap-6 items-center">
-<a class="text-[#44d8f1] border-b-2 border-[#44d8f1] pb-1 font-medium text-sm transition-all duration-200" href="#">Dashboard</a>
-<a class="text-[#dde3ed]/70 hover:text-[#dde3ed] font-medium text-sm transition-all duration-200" href="#">Triage</a>
-<a class="text-[#dde3ed]/70 hover:text-[#dde3ed] font-medium text-sm transition-all duration-200" href="#">Network</a>
-<a class="text-[#dde3ed]/70 hover:text-[#dde3ed] font-medium text-sm transition-all duration-200" href="#">Resources</a>
+<a onclick="window.scrollTo({top: 0, behavior: 'smooth'}); openDeepDive('Overview');" class="text-[#44d8f1] border-b-2 border-[#44d8f1] pb-1 font-medium text-sm transition-all duration-200 cursor-pointer">Dashboard</a>
+<a onclick="document.getElementById('triage-section').scrollIntoView({behavior: 'smooth'}); openDeepDive('Early Warning');" class="text-[#dde3ed]/70 hover:text-[#dde3ed] font-medium text-sm transition-all duration-200 cursor-pointer">Triage</a>
+<a onclick="document.getElementById('ngo-hub-section').scrollIntoView({behavior: 'smooth'}); openDeepDive('NGO Hub');" class="text-[#dde3ed]/70 hover:text-[#dde3ed] font-medium text-sm transition-all duration-200 cursor-pointer">Network</a>
+<a onclick="document.getElementById('resource-section').scrollIntoView({behavior: 'smooth'}); openDeepDive('Tools');" class="text-[#dde3ed]/70 hover:text-[#dde3ed] font-medium text-sm transition-all duration-200 cursor-pointer">Resources</a>
 </nav>
 </div>
 <div class="flex items-center gap-4">
-<button class="p-2 text-[#dde3ed]/70 hover:bg-[#252a32] rounded-lg transition-colors duration-200">
+<button onclick="notify('Recent Activity: 0 New Notifications')" class="p-2 text-[#dde3ed]/70 hover:bg-[#252a32] rounded-lg transition-colors duration-200">
 <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
 </button>
-<button class="p-2 text-[#dde3ed]/70 hover:bg-[#252a32] rounded-lg transition-colors duration-200">
+<button onclick="notify('Mentor Privacy Settings Synchronized: End-to-End Encryption Active')" class="p-2 text-[#dde3ed]/70 hover:bg-[#252a32] rounded-lg transition-colors duration-200">
 <span class="material-symbols-outlined" data-icon="settings">settings</span>
 </button>
-<img alt="Mentor profile avatar" class="w-9 h-9 rounded-full object-cover border-2 border-primary/20" data-alt="professional portrait of a middle-aged mentor with a warm smile, soft cinematic lighting, studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMNu5OocOWGnrp_CsX7mbk9v-1CbJI1qh0M_vkNzcq5ViZfjELutGUWQbZFw5Wf7loG9-OtkcDj7YCjFOcW3V--LNuB02CD_rE92w7bbAbmflVgpOB3i8WeSs38YKxYk8TFf-Y6-RBx6ljTVwZzCP84Aux_klmyJ5P2KX6722uQjOApQsaocnp9uqxDsqBpzs5x45kfJb5A71A66avPAYRMbxMs-Fw_yCAfMTqpmffL9YRerINeW6v-zek1TD2pQOxNM97zrtaKo8B"/>
+<div class="relative">
+<button onclick="document.getElementById('profile-dropdown').classList.toggle('hidden')" class="p-2 text-[#dde3ed]/70 hover:bg-[#252a32] rounded-lg transition-colors duration-200">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+</button>
+<!-- Glassmorphic Mentor Dropdown -->
+<div id="profile-dropdown" class="hidden absolute right-0 mt-4 w-72 glass-panel border border-primary/20 rounded-2xl shadow-[0_0_30px_rgba(0,0,0,0.8)] p-6 z-50">
+<div class="flex items-center gap-4 mb-5 border-b border-outline-variant/30 pb-5">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary border border-primary/30">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">badge</span>
+</div>
+<div>
+<h3 class="font-bold text-[#dde3ed] text-base font-headline">Arjun Sharma</h3>
+<p class="text-[10px] text-primary uppercase tracking-widest font-bold mt-1">NGO Lead</p>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-outline text-lg">mail</span>
+<span class="text-[#dde3ed]/90 font-medium">arjun.m@youthlink.org</span>
+</div>
+<div class="flex items-center gap-3 text-sm">
+<span class="material-symbols-outlined text-outline text-lg">cake</span>
+<span class="text-[#dde3ed]/90 font-medium">Age: 34</span>
+</div>
+<div class="flex justify-center mt-4 border-t border-outline-variant/30 pt-4">
+<a href="index.html" class="text-xs text-error hover:text-[#ffdad6] font-bold tracking-widest uppercase transition-colors">Sign Out</a>
+</div>
+</div>
+</div>
+</div>
 </div>
 </header>
 <div class="flex min-h-screen pt-16 pb-20 lg:pb-0">
@@ -149,11 +196,11 @@
 </a>
 </nav>
 <div class="mt-auto flex flex-col gap-2 pt-6 border-t border-outline-variant/15">
-<button class="w-full bg-primary text-on-primary font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-4 hover:scale-[1.02] active:scale-95 transition-all">
+<button onclick="document.getElementById('intervention-modal').classList.remove('hidden')" class="w-full bg-primary text-on-primary font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 mb-4 hover:scale-[1.02] active:scale-95 transition-all shadow-[0_0_20px_rgba(68,216,241,0.2)]">
 <span class="material-symbols-outlined" data-icon="add">add</span>
 <span>New Intervention</span>
 </button>
-<a class="flex items-center gap-3 px-4 py-2 text-[#dde3ed]/60 hover:text-[#dde3ed] transition-colors" href="#">
+<a class="flex items-center gap-3 px-4 py-2 text-[#dde3ed]/60 hover:text-[#dde3ed] transition-colors" href="#" onclick="notify('Loading Support Documentation...')">
 <span class="material-symbols-outlined text-sm" data-icon="help">help</span>
 <span class="text-sm font-label">Help Center</span>
 </a>
@@ -171,7 +218,7 @@
 </header>
 <div class="bento-grid">
 <!-- Early Warning Triage Section -->
-<section class="col-span-12 lg:col-span-7 bg-surface-container-low rounded-xl p-6 shadow-sm border border-outline-variant/5">
+<section id="triage-section" class="tilt-element col-span-12 lg:col-span-7 bg-surface-container-low rounded-xl p-6 shadow-sm border border-outline-variant/5">
 <div class="flex items-center justify-between mb-6">
 <div class="flex items-center gap-3">
 <span class="material-symbols-outlined text-tertiary" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
@@ -195,7 +242,7 @@
 </div>
 </div>
 </div>
-<button class="w-full md:w-auto px-6 py-2.5 bg-error/10 text-error border border-error/20 rounded-lg text-sm font-bold hover:bg-error hover:text-on-error transition-all duration-200">
+<button onclick="reviewCase('#8824')" class="w-full md:w-auto px-6 py-2.5 bg-error/10 text-error border border-error/20 rounded-lg text-sm font-bold hover:bg-error hover:text-on-error transition-all duration-200">
                                 Review Data
                             </button>
 </div>
@@ -213,14 +260,35 @@
 </div>
 </div>
 </div>
-<button class="w-full md:w-auto px-6 py-2.5 bg-error/10 text-error border border-error/20 rounded-lg text-sm font-bold hover:bg-error hover:text-on-error transition-all duration-200">
+<button onclick="reviewCase('#9211')" class="w-full md:w-auto px-6 py-2.5 bg-error/10 text-error border border-error/20 rounded-lg text-sm font-bold hover:bg-error hover:text-on-error transition-all duration-200">
                                 Review Data
                             </button>
+</div>
+
+<!-- AI ASSESSMENT FEED (LIVE) -->
+<div class="group flex flex-col md:flex-row items-start md:items-center justify-between p-5 bg-primary/5 rounded-xl border border-primary/20 animate-pulse transition-all duration-300 hover:ring-1 hover:ring-primary/40">
+<div class="flex items-center gap-4 mb-4 md:mb-0">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center border border-primary/30">
+<span class="material-symbols-outlined text-primary" data-icon="robot_2">robot_2</span>
+</div>
+<div>
+<h3 class="font-bold text-white font-headline">Nature #2124 (Live AI Stream)</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="w-2 h-2 rounded-full bg-teal-500 shadow-[0_0_10px_rgba(20,184,166,0.8)]"></span>
+<p class="text-xs text-teal-400 font-black uppercase tracking-widest">Self-Check: Critical Stress detected</p>
+</div>
+</div>
+</div>
+<div class="flex gap-2 w-full md:w-auto">
+<button onclick="reviewCase('Nature #2124')" class="flex-1 md:flex-none px-6 py-2.5 bg-primary text-slate-900 border border-primary rounded-lg text-sm font-black hover:scale-105 transition-all">
+    Deploy Support
+</button>
+</div>
 </div>
 </div>
 </section>
 <!-- NGO Visibility Hub -->
-<section class="col-span-12 lg:col-span-5 bg-surface-container-low rounded-xl p-6 border border-outline-variant/5">
+<section id="ngo-hub-section" class="tilt-element col-span-12 lg:col-span-5 bg-surface-container-low rounded-xl p-6 border border-outline-variant/5">
 <div class="flex items-center gap-3 mb-8">
 <span class="material-symbols-outlined text-secondary" data-icon="analytics">analytics</span>
 <h2 class="text-xl font-bold font-headline">NGO Visibility Hub</h2>
@@ -256,7 +324,7 @@
 </div>
 </section>
 <!-- 1-1 Networking Workspace (Chat) -->
-<section class="col-span-12 lg:col-span-8 h-[500px] flex flex-col bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/5">
+<section class="tilt-element col-span-12 lg:col-span-8 h-[500px] flex flex-col bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/5">
 <div class="p-4 border-b border-outline-variant/10 flex items-center justify-between bg-surface-container-high/50">
 <div class="flex items-center gap-3">
 <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
@@ -271,11 +339,11 @@
 <span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
 </button>
 </div>
-<div class="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide">
+<div id="message-container" class="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide">
 <!-- Message Received -->
 <div class="flex gap-4 max-w-[85%]">
-<div class="w-8 h-8 rounded-full bg-surface-container-highest flex-shrink-0 mt-1">
-<img alt="User placeholder" class="w-full h-full rounded-full object-cover" data-alt="abstract artistic portrait of a young adult, soft focus, indigo lighting, mysterious atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6gbAfvBrp84_GU0Jue_TAPoAcHTgAiOixfE_rSDiAlwedzBQe56nf7qiI4GgPKnvdO5eHLKoehWaUKp6xx7aHt8caEEokQO0cGVi9VJIR70MX1eh-DdPwUWlba8FHUMKhMkvLvmIFaSgufp-kzrruLoRTuf3Gwrn7knwOoe3onBviDAMWTiwBCsaqpKFtUHeBv_4LA2gOzPcZT4E3WFjtsufVcoCQb8QfB8BvOdDyOf2zsPlGke4PnSWipQCYWTxdb6TGDNqlDSFc"/>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex-shrink-0 mt-1 flex items-center justify-center text-on-surface-variant/50">
+<span class="material-symbols-outlined text-xl">person</span>
 </div>
 <div class="bg-surface-container-high p-4 rounded-2xl rounded-tl-none">
 <p class="text-sm leading-relaxed text-on-surface-variant">I’ve been feeling really overwhelmed lately with exams and everything else going on. It feels like I can't catch my breath most mornings.</p>
@@ -292,12 +360,12 @@
 </div>
 <div class="p-4 bg-surface-container-high/30">
 <div class="relative">
-<input class="w-full bg-surface-container-highest border-none rounded-xl py-4 pl-5 pr-24 text-sm focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-on-surface-variant/40" placeholder="Type an empathetic response..." type="text"/>
+<input id="chat-input" onkeypress="handleChatInput(event)" class="w-full bg-surface-container-highest border-none rounded-xl py-4 pl-5 pr-24 text-sm focus:ring-2 focus:ring-primary/40 transition-all placeholder:text-on-surface-variant/40" placeholder="Type an empathetic response..." type="text"/>
 <div class="absolute right-2 top-2 flex items-center gap-1">
 <button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
 <span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
 </button>
-<button class="bg-primary text-on-primary p-2 rounded-lg hover:bg-primary-container transition-all shadow-lg shadow-primary/10">
+<button onclick="sendMessage()" class="bg-primary text-on-primary p-2 rounded-lg hover:bg-primary-container transition-all shadow-lg shadow-primary/10">
 <span class="material-symbols-outlined" data-icon="send">send</span>
 </button>
 </div>
@@ -305,7 +373,7 @@
 </div>
 </section>
 <!-- Resource Deployment Section -->
-<section class="col-span-12 lg:col-span-4 bg-surface-container-low rounded-xl p-6 border border-outline-variant/5">
+<section id="resource-section" class="col-span-12 lg:col-span-4 bg-surface-container-low rounded-xl p-6 border border-outline-variant/5">
 <div class="flex items-center gap-3 mb-6">
 <span class="material-symbols-outlined text-primary" data-icon="inventory_2">inventory_2</span>
 <h2 class="text-xl font-bold font-headline">Resources</h2>
@@ -322,7 +390,7 @@
 <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">4-7-8 Breathing and 5-4-3-2-1 technique audio guide.</p>
 </div>
 </div>
-<button class="w-full py-2 bg-surface-container-highest text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">
+<button onclick="deployModule('Grounding Exercises')" class="w-full py-2 bg-surface-container-highest text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-on-primary transition-all">
                                 DEPLOY MODULE
                             </button>
 </div>
@@ -337,11 +405,11 @@
 <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">Structured prompt for emotional processing and venting.</p>
 </div>
 </div>
-<button class="w-full py-2 bg-surface-container-highest text-secondary font-bold text-xs rounded-lg hover:bg-secondary hover:text-on-secondary transition-all">
+<button onclick="deployModule('Interactive Journal')" class="w-full py-2 bg-surface-container-highest text-secondary font-bold text-xs rounded-lg hover:bg-secondary hover:text-on-secondary transition-all">
                                 DEPLOY MODULE
                             </button>
 </div>
-<button class="w-full py-3 border border-dashed border-outline-variant/40 text-on-surface-variant hover:text-on-surface hover:border-on-surface transition-all text-sm rounded-xl">
+<button onclick="document.getElementById('resource-modal').classList.remove('hidden')" class="w-full py-3 border border-dashed border-outline-variant/40 text-on-surface-variant hover:text-on-surface hover:border-on-surface transition-all text-sm rounded-xl">
                             + Browse Full Library
                         </button>
 </div>
@@ -349,23 +417,498 @@
 </div>
 </main>
 </div>
+
+<!-- Extra Resource Modal -->
+<div id="resource-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4">
+    <div class="absolute inset-0 bg-[#0e141b]/95 backdrop-blur-xl" onclick="document.getElementById('resource-modal').classList.add('hidden')"></div>
+    <div class="relative w-full max-w-3xl glass-panel border border-primary/20 rounded-[2.5rem] p-10 shadow-[0_0_80px_rgba(68,216,241,0.1)] animate-in zoom-in duration-300 overflow-y-auto max-h-[90vh]">
+        <button onclick="document.getElementById('resource-modal').classList.add('hidden')" class="absolute top-6 right-6 p-4 text-on-surface-variant/40 hover:text-primary transition-all">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <header class="mb-10">
+            <h2 class="text-3xl font-extrabold font-headline mb-2 text-[#dde3ed]">Resource Library</h2>
+            <p class="text-on-surface-variant">Global repository of youth-friendly digital wellbeing modules.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- R1 -->
+            <div class="bg-surface-container-high p-6 rounded-2xl border border-outline-variant/10 hover:border-primary/40 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 mb-4">
+                        <span class="material-symbols-outlined">bedtime</span>
+                    </div>
+                    <h4 class="font-bold text-lg text-on-surface leading-tight">Sleep Hygiene Guide</h4>
+                    <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Interactive checklist and behavioral schedule to improve adolescent rest patterns.</p>
+                </div>
+                <button onclick="deployModule('Sleep Hygiene Guide')" class="mt-6 w-full py-3 bg-surface-container-highest text-primary font-bold text-xs rounded-xl hover:bg-primary hover:text-on-primary transition-all tracking-widest uppercase">DEPLOY MODULE</button>
+            </div>
+            <!-- R2 -->
+            <div class="bg-surface-container-high p-6 rounded-2xl border border-outline-variant/10 hover:border-secondary/40 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary mb-4">
+                        <span class="material-symbols-outlined">spa</span>
+                    </div>
+                    <h4 class="font-bold text-lg text-on-surface leading-tight">Mindfulness Soundscape</h4>
+                    <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Curated 10-minute spatial audio experience focusing on detachment and grounding.</p>
+                </div>
+                <button onclick="deployModule('Mindfulness Soundscape')" class="mt-6 w-full py-3 bg-surface-container-highest text-secondary font-bold text-xs rounded-xl hover:bg-secondary hover:text-on-secondary transition-all tracking-widest uppercase">DEPLOY MODULE</button>
+            </div>
+            <!-- R3 -->
+            <div class="bg-surface-container-high p-6 rounded-2xl border border-outline-variant/10 hover:border-primary/40 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+                        <span class="material-symbols-outlined">favorite</span>
+                    </div>
+                    <h4 class="font-bold text-lg text-on-surface leading-tight">Positive Affirmation Deck</h4>
+                    <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Daily-rotating series of affirming prompts designed to combat self-criticism.</p>
+                </div>
+                <button onclick="deployModule('Affirmation Deck')" class="mt-6 w-full py-3 bg-surface-container-highest text-primary font-bold text-xs rounded-xl hover:bg-primary hover:text-on-primary transition-all tracking-widest uppercase">DEPLOY MODULE</button>
+            </div>
+            <!-- R4 -->
+            <div class="bg-surface-container-high p-6 rounded-2xl border border-outline-variant/10 hover:border-[#ff8b67]/40 transition-all group flex flex-col justify-between">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-[#ff8b67]/10 flex items-center justify-center text-[#ff8b67] mb-4">
+                        <span class="material-symbols-outlined">school</span>
+                    </div>
+                    <h4 class="font-bold text-lg text-on-surface leading-tight">Academic Stress Toolkit</h4>
+                    <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">Strategies for handling high-pressure exam periods and task prioritization.</p>
+                </div>
+                <button onclick="deployModule('Academic Stress Toolkit')" class="mt-6 w-full py-3 bg-surface-container-highest text-[#ff8b67] font-bold text-xs rounded-xl hover:bg-[#ff8b67] hover:text-[#3a0a00] transition-all tracking-widest uppercase">DEPLOY MODULE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mentor SOP Guidebook Modal -->
+<div id="guidebook-modal" class="hidden fixed inset-0 z-[120] flex items-center justify-center px-6">
+    <div class="absolute inset-0 bg-[#0e141b]/95 backdrop-blur-2xl" onclick="document.getElementById('guidebook-modal').classList.add('hidden')"></div>
+    <div class="relative w-full max-w-2xl glass-panel border border-primary/20 rounded-[3rem] p-10 shadow-[0_0_100px_rgba(68,216,241,0.1)] overflow-y-auto max-h-[85vh]">
+        <button onclick="document.getElementById('guidebook-modal').classList.add('hidden')" class="absolute top-8 right-8 p-3 text-on-surface-variant/30 hover:text-primary transition-all">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <header class="mb-10 flex items-center gap-4 border-b border-outline-variant/10 pb-6">
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-2xl">menu_book</span>
+            </div>
+            <div>
+                <h2 class="text-2xl font-extrabold font-headline text-[#dde3ed]">Mentor SOP Guidebook</h2>
+                <p class="text-xs text-on-surface-variant uppercase tracking-widest font-black">Standard Operating Procedures</p>
+            </div>
+        </header>
+
+        <div class="space-y-8">
+            <div class="space-y-2">
+                <h4 class="text-primary font-bold text-sm tracking-wide">01. THE ANONYMITY PROTOCOL</h4>
+                <p class="text-on-surface-variant text-sm leading-relaxed">Safety is built on trust. Never request Personally Identifiable Information (PII) from youth. Refer to the active user only by their unique ID (e.g., #8824).</p>
+            </div>
+            <div class="space-y-2">
+                <h4 class="text-primary font-bold text-sm tracking-wide">02. EMPATHETIC ENGAGEMENT</h4>
+                <p class="text-on-surface-variant text-sm leading-relaxed">Prioritize active listening. Use open-ended questions like "How does that feel specifically?" to allow the user to explore their emotional landscape at their own pace.</p>
+            </div>
+            <div class="space-y-2 border-l-2 border-error/40 pl-6 py-2 bg-error/5 rounded-r-xl">
+                <h4 class="text-error font-bold text-sm tracking-wide">03. CRISIS ESCALATION</h4>
+                <p class="text-on-surface-variant text-sm leading-relaxed font-medium italic">Detection of self-harm markers or imminent danger requires immediate escalation. Use the "Red Flag" button in the conversation hub to alert an NGO Lead instantly.</p>
+            </div>
+            <div class="space-y-2">
+                <h4 class="text-primary font-bold text-sm tracking-wide">04. RESOURCE DEPLOYMENT</h4>
+                <p class="text-on-surface-variant text-sm leading-relaxed">Only push digital assets (Sleep Guides, Breathing Tools) when relevant to the current conversation. Quality over quantity ensures resources are not dismissed as spam.</p>
+            </div>
+        </div>
+
+        <div class="mt-12 flex justify-center border-t border-outline-variant/10 pt-8">
+            <p class="text-[10px] text-on-surface-variant/40 text-center tracking-[0.3em] font-black italic uppercase">Probative Digital Mentorship Framework • Established 2026</p>
+        </div>
+    </div>
+</div>
 <!-- BottomNavBar Shell (Mobile) -->
 <nav class="lg:hidden fixed bottom-0 w-full z-50 flex justify-around items-center p-3 pb-safe bg-[#0e141b]/90 backdrop-blur-xl border-t border-[#dde3ed]/15 shadow-2xl">
-<a class="flex flex-col items-center justify-center bg-[#44d8f1]/20 text-[#44d8f1] rounded-xl px-4 py-1 scale-90 duration-200" href="#">
+<a onclick="window.scrollTo({top: 0, behavior: 'smooth'}); openDeepDive('Overview');" class="flex flex-col items-center justify-center bg-[#44d8f1]/20 text-[#44d8f1] rounded-xl px-4 py-1 scale-90 duration-200 cursor-pointer">
 <span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
 <span class="text-[10px] font-label mt-0.5">Home</span>
 </a>
-<a class="flex flex-col items-center justify-center text-[#dde3ed]/50 hover:text-[#44d8f1]" href="#">
+<a onclick="document.getElementById('triage-section').scrollIntoView({behavior: 'smooth'}); openDeepDive('Early Warning');" class="flex flex-col items-center justify-center text-[#dde3ed]/50 hover:text-[#44d8f1] cursor-pointer">
 <span class="material-symbols-outlined" data-icon="warning">warning</span>
 <span class="text-[10px] font-label mt-0.5">Triage</span>
 </a>
-<a class="flex flex-col items-center justify-center text-[#dde3ed]/50 hover:text-[#44d8f1]" href="#">
+<a onclick="document.getElementById('message-container').parentElement.scrollIntoView({behavior: 'smooth'}); openDeepDive('Messages');" class="flex flex-col items-center justify-center text-[#dde3ed]/50 hover:text-[#44d8f1] cursor-pointer">
 <span class="material-symbols-outlined" data-icon="mail">mail</span>
 <span class="text-[10px] font-label mt-0.5">Chat</span>
 </a>
-<a class="flex flex-col items-center justify-center text-[#dde3ed]/50 hover:text-[#44d8f1]" href="#">
+<a onclick="document.getElementById('resource-section').scrollIntoView({behavior: 'smooth'}); openDeepDive('Tools');" class="flex flex-col items-center justify-center text-[#dde3ed]/50 hover:text-[#44d8f1] cursor-pointer">
 <span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
 <span class="text-[10px] font-label mt-0.5">Resources</span>
 </a>
 </nav>
+
+<!-- New Intervention Modal -->
+<div id="intervention-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center px-4">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-[#0e141b]/90 backdrop-blur-md" onclick="document.getElementById('intervention-modal').classList.add('hidden')"></div>
+    
+    <!-- Modal Pane -->
+    <div class="relative w-full max-w-2xl glass-panel border border-primary/20 rounded-[2.5rem] p-8 md:p-12 shadow-[0_0_50px_rgba(68,216,241,0.15)] animate-in fade-in zoom-in duration-300">
+        <button onclick="document.getElementById('intervention-modal').classList.add('hidden')" class="absolute top-6 right-6 p-2 text-on-surface-variant/40 hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <header class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4 border border-primary/20 animate-pulse">
+                <span class="material-symbols-outlined text-3xl">add_moderator</span>
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold font-headline mb-2">New Intervention</h2>
+            <p class="text-on-surface-variant text-sm">Initiate priority outreach for at-risk adolescents.</p>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="relative mb-12">
+            <input type="text" placeholder="Search by Anonymous User ID (e.g. #8824)" class="w-full bg-surface-container-high/50 border border-outline-variant/20 rounded-2xl py-5 pl-14 pr-6 text-sm focus:ring-2 focus:ring-primary/40 focus:border-transparent transition-all placeholder:text-on-surface-variant/30">
+            <span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-on-surface-variant/50">search</span>
+        </div>
+
+        <!-- Action Orbs Grid -->
+        <section id="ngo-hub-section" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <!-- Orb 1 -->
+            <button onclick="executeIntervention('Assign Support Plan')" class="group flex flex-col items-center justify-center p-6 rounded-3xl bg-surface-container-low hover:bg-primary/5 border border-outline-variant/10 hover:border-primary/40 transition-all duration-300 hover:-translate-y-2">
+                <div class="w-16 h-16 rounded-full bg-surface-container-high group-hover:bg-primary/20 flex items-center justify-center text-on-surface-variant group-hover:text-primary transition-all duration-300 shadow-xl mb-4">
+                    <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">assignment_turned_in</span>
+                </div>
+                <span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant group-hover:text-on-surface transition-colors">Assign Support Plan</span>
+            </button>
+            <!-- Orb 2 -->
+            <button onclick="executeIntervention('Direct Message')" class="group flex flex-col items-center justify-center p-6 rounded-3xl bg-surface-container-low hover:bg-primary/5 border border-outline-variant/10 hover:border-primary/40 transition-all duration-300 hover:-translate-y-2">
+                <div class="w-16 h-16 rounded-full bg-surface-container-high group-hover:bg-primary/20 flex items-center justify-center text-on-surface-variant group-hover:text-primary transition-all duration-300 shadow-xl mb-4">
+                    <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">chat</span>
+                </div>
+                <span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant group-hover:text-on-surface transition-colors">Direct Message</span>
+            </button>
+            <!-- Orb 3 -->
+            <button onclick="executeIntervention('Send Resource')" class="group flex flex-col items-center justify-center p-6 rounded-3xl bg-surface-container-low hover:bg-primary/5 border border-outline-variant/10 hover:border-primary/40 transition-all duration-300 hover:-translate-y-2">
+                <div class="w-16 h-16 rounded-full bg-surface-container-high group-hover:bg-primary/20 flex items-center justify-center text-on-surface-variant group-hover:text-primary transition-all duration-300 shadow-xl mb-4">
+                    <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">cloud_upload</span>
+                </div>
+                <span class="text-xs font-bold uppercase tracking-wider text-on-surface-variant group-hover:text-on-surface transition-colors">Send Resource</span>
+            </button>
+        </div>
+
+        <!-- Weightless Floating Text -->
+        <div class="mt-12 text-center">
+            <p class="text-[10px] text-on-surface-variant/40 uppercase tracking-[0.3em] font-medium animate-bounce pointer-events-none">Select an Uplink Action</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes zoom-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    @keyframes slide-up { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .animate-in { animation: fade-in backwards; }
+    .zoom-in { animation-name: zoom-in, fade-in; }
+    .animate-slide-up { animation: slide-up 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+    
+    /* Scrollbar cleanup */
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+<!-- Global Action Feedback (Toast) -->
+<div id="toast-container" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[200] flex flex-col gap-3 pointer-events-none"></div>
+
+<!-- Feature Deep-Dive Modal (Mini-Screen) -->
+<div id="deep-dive-modal" class="hidden fixed inset-0 z-[110] flex items-center justify-center px-6">
+    <div class="absolute inset-0 bg-[#0e141b]/80 backdrop-blur-2xl" onclick="closeDeepDive()"></div>
+    
+    <!-- Floating Cinematic Card -->
+    <div class="relative w-full max-w-2xl glass-panel border border-primary/40 rounded-[3rem] p-12 shadow-[0_0_100px_rgba(68,216,241,0.1)] animate-in zoom-in duration-500 overflow-hidden group">
+        <!-- Floating Data Bubbles (Aesthetic) -->
+        <div class="absolute -top-10 -left-10 w-32 h-32 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-all duration-700"></div>
+        <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-secondary/5 rounded-full blur-3xl group-hover:bg-secondary/10 transition-all duration-700"></div>
+        
+        <button onclick="closeDeepDive()" class="absolute top-8 right-8 p-3 text-on-surface-variant/30 hover:text-primary hover:rotate-90 transition-all duration-300">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+
+        <div class="text-center">
+            <div id="dive-icon-container" class="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-primary/10 text-primary mb-8 border border-primary/20 shadow-[0_0_30px_rgba(68,216,241,0.1)]">
+                <span id="dive-icon" class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">info</span>
+            </div>
+            
+            <h4 id="dive-subtitle" class="text-[10px] text-primary uppercase tracking-[0.4em] font-black mb-3">Feature Insight</h4>
+            <h2 id="dive-title" class="text-3xl md:text-4xl font-extrabold font-headline mb-6 text-[#dde3ed]">Deep-Dive Explorer</h2>
+            
+            <div class="w-12 h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent mx-auto mb-8"></div>
+            
+            <p id="dive-description" class="text-on-surface-variant text-lg leading-relaxed font-body max-w-lg mx-auto">
+                Exploring the operational architecture of the support ecosystem.
+            </p>
+
+            <!-- Floating Data Bubbles -->
+            <div class="mt-12 flex justify-center gap-4">
+                <div class="px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-[10px] text-primary/70 font-bold tracking-widest uppercase animate-bounce" style="animation-delay: 0.1s">AI Analysis</div>
+                <div class="px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-[10px] text-primary/70 font-bold tracking-widest uppercase animate-bounce" style="animation-delay: 0.3s">Encrypted</div>
+                <div class="px-4 py-1.5 rounded-full bg-primary/5 border border-primary/10 text-[10px] text-primary/70 font-bold tracking-widest uppercase animate-bounce" style="animation-delay: 0.5s">Social Impact</div>
+            </div>
+
+            <!-- Dynamic CTA -->
+            <div id="dive-cta-container" class="mt-12 hidden">
+                <button id="dive-cta" class="px-10 py-4 bg-primary text-on-primary font-bold text-xs tracking-widest uppercase rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(68,216,241,0.25)]"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- Global Utility: Action Feedback ---
+    function notify(message, type = 'primary') {
+        const toast = document.createElement('div');
+        const colorClass = type === 'error' ? 'text-error' : 'text-primary';
+        const borderColor = type === 'error' ? 'border-error/20' : 'border-primary/20';
+        
+        toast.className = `px-6 py-4 glass-panel border ${borderColor} rounded-2xl shadow-2xl flex items-center gap-3 pointer-events-auto animate-slide-up bg-surface-container-high/90`;
+        toast.innerHTML = `
+            <span class="material-symbols-outlined ${colorClass} text-xl">${type === 'error' ? 'report' : 'check_circle'}</span>
+            <span class="text-sm font-bold text-on-surface">${message}</span>
+        `;
+        
+        document.getElementById('toast-container').appendChild(toast);
+        setTimeout(() => {
+            if(toast) {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(20px) translateX(-50%) scale(0.9)';
+                toast.style.transition = 'all 0.5s ease';
+                setTimeout(() => toast.remove(), 500);
+            }
+        }, 3000);
+    }
+
+    // --- Feature Deep-Dive Logic ---
+    const diveContent = {
+        'Overview': {
+            title: 'Operations Overview',
+            subtitle: 'Dashboard Insight',
+            icon: 'grid_view',
+            description: 'A cinematic high-level snapshot of your mentorship cohort. It provides immediate visibility into active support plans and longitudinal impact metrics.'
+        },
+        'Early Warning': {
+            title: 'Triage Insight',
+            subtitle: 'AI Diagnostic Hub',
+            icon: 'warning',
+            description: 'Our proprietary Triage Engine detects early warning signs in adolescents (like "Severe Anxiety Spikes") using behavioral telemetry, enabling life-saving intervention before issues escalate.'
+        },
+        'Messages': {
+            title: 'Safe Entry Point',
+            subtitle: 'Encrypted Communicator',
+            icon: 'chat',
+            description: 'The Safe Entry Point is an anonymous, end-to-end encrypted channel where youth can express emotional concerns without the fear of judgment, stigma, or surveillance.',
+            cta: 'Launch Secure Uplink',
+            action: () => {
+                document.getElementById('message-container').parentElement.scrollIntoView({ behavior: 'smooth' });
+                notify('Messaging Workspace Active', 'primary');
+            }
+        },
+        'NGO Hub': {
+            title: 'Visibility Gap',
+            subtitle: 'Data Integrity Hub',
+            icon: 'analytics',
+            description: 'Provides structured data on youth wellbeing indicators. Mentors use this to bridge the visibility gap, monitoring outreach effectiveness and measuring total social impact.'
+        },
+        'Tools': {
+            title: 'Digital Wellbeing Toolkit',
+            subtitle: 'Resource Repository',
+            icon: 'category',
+            description: 'A vast repository of accessible support resources, from peer-mentorship modules to clinical guides, placed directly into the hands of adolescents via remote deployment.',
+            cta: 'Open Global Repository',
+            action: () => document.getElementById('resource-modal').classList.remove('hidden')
+        },
+        'Help Center': {
+            title: 'Mentor SOP',
+            subtitle: 'Guidance Protocols',
+            icon: 'help',
+            description: 'Standard Operating Procedures guide our volunteers (Established 2026). It outlines community-rooted support structures and ethical frameworks for safe, effective digital mentorship.',
+            cta: 'View Guidebook',
+            action: () => document.getElementById('guidebook-modal').classList.remove('hidden')
+        },
+        'New Intervention': {
+            title: 'Proactive Action',
+            subtitle: 'Intervention Pane',
+            icon: 'add_moderator',
+            description: 'Allows a mentor to manually initiate a support plan for a specific anonymous user flagged by the system, ensuring immediate care for high-priority cases.',
+            cta: 'Initiate Priority Case',
+            action: () => document.getElementById('intervention-modal').classList.remove('hidden')
+        }
+    };
+
+    function openDeepDive(key) {
+        const content = diveContent[key];
+        if (!content) return;
+
+        document.getElementById('dive-title').innerText = content.title;
+        document.getElementById('dive-subtitle').innerText = content.subtitle;
+        document.getElementById('dive-icon').innerText = content.icon;
+        document.getElementById('dive-description').innerText = content.description;
+        
+        const ctaContainer = document.getElementById('dive-cta-container');
+        if (content.cta) {
+            ctaContainer.classList.remove('hidden');
+            const ctaBtn = document.getElementById('dive-cta');
+            ctaBtn.innerText = content.cta;
+            ctaBtn.onclick = () => {
+                content.action();
+                closeDeepDive();
+            };
+        } else {
+            ctaContainer.classList.add('hidden');
+        }
+
+        document.getElementById('deep-dive-modal').classList.remove('hidden');
+        notify(`${content.title} Initialized`, 'primary');
+    }
+
+    function closeDeepDive() {
+        document.getElementById('deep-dive-modal').classList.add('hidden');
+    }
+
+    // --- Feature: Real-time Chat Simulation ---
+    function handleChatInput(event) {
+        if (event.key === 'Enter') sendMessage();
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('chat-input');
+        const text = input.value.trim();
+        if (!text) return;
+
+        const container = document.getElementById('message-container');
+        
+        const mentorMsg = document.createElement('div');
+        mentorMsg.className = "flex gap-4 max-w-[85%] ml-auto flex-row-reverse animate-in zoom-in duration-300";
+        mentorMsg.innerHTML = `
+            <div class="bg-primary/10 border border-primary/20 p-4 rounded-2xl rounded-tr-none">
+                <p class="text-sm leading-relaxed text-on-surface">${text}</p>
+                <span class="text-[10px] text-primary/70 mt-2 block text-right">Just Now</span>
+            </div>
+        `;
+        container.appendChild(mentorMsg);
+        input.value = '';
+        container.scrollTop = container.scrollHeight;
+
+        setTimeout(() => {
+            const replyMsg = document.createElement('div');
+            replyMsg.className = "flex gap-4 max-w-[85%] animate-in zoom-in duration-300";
+            replyMsg.innerHTML = `
+                <div class="w-8 h-8 rounded-full bg-surface-container-highest flex-shrink-0 mt-1 flex items-center justify-center text-on-surface-variant/50">
+                    <span class="material-symbols-outlined text-xl">person</span>
+                </div>
+                <div class="bg-surface-container-high p-4 rounded-2xl rounded-tl-none">
+                    <p class="text-sm leading-relaxed text-on-surface-variant italic">Typing status indicated... (Processing response)</p>
+                </div>
+            `;
+            container.appendChild(replyMsg);
+            container.scrollTop = container.scrollHeight;
+            
+            setTimeout(() => {
+                replyMsg.querySelector('p').innerText = "Thank you for that... I'm reflecting on your guidance. It actually makes me feel a bit more grounded knowing you're listening.";
+                replyMsg.querySelector('p').classList.remove('italic');
+                container.scrollTop = container.scrollHeight;
+                notify("New Message Received", "primary");
+            }, 2000);
+        }, 1000);
+    }
+
+    // --- Feature: Resource Deployment ---
+    function deployModule(name) {
+        notify(`Pushing ${name} to Youth User #4412's Mobile Workspace...`);
+        setTimeout(() => notify(`${name} successfully synced with User Device`, 'primary'), 1800);
+    }
+
+    // --- Feature: Case Review ---
+    function reviewCase(id) {
+        notify(`Accessing Secure Telemetry for Case ${id}...`);
+        setTimeout(() => {
+            document.getElementById('intervention-modal').classList.remove('hidden');
+            const searchInput = document.querySelector('#intervention-modal input');
+            searchInput.value = id;
+            notify(`Nature Analysis Loaded for ${id}`, 'primary');
+        }, 1000);
+    }
+
+    // --- Feature: Intervention Actions ---
+    function executeIntervention(action) {
+        notify(`Initiating: ${action}...`);
+        setTimeout(() => {
+            notify(`${action} Executed Successfully`, 'primary');
+            document.getElementById('intervention-modal').classList.add('hidden');
+        }, 1500);
+    }
+
+    // --- Global: Sidebar Navigation Feedback & Scrolling ---
+    document.querySelectorAll('aside nav a').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const text = link.querySelector('.font-label').innerText;
+            openDeepDive(text);
+            
+            // Auto-scroll main window to correspond with sidebar selection
+            const scrollMap = {
+                'Overview': 'top',
+                'Early Warning': 'triage-section',
+                'Messages': 'message-container',
+                'NGO Hub': 'ngo-hub-section',
+                'Tools': 'resource-section'
+            };
+            
+            const targetId = scrollMap[text];
+            if (targetId === 'top') {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            } else if (targetId) {
+                const targetEl = document.getElementById(targetId);
+                // For messages, scroll to parent container to show header
+                if(targetId === 'message-container' && targetEl) {
+                    targetEl.parentElement.scrollIntoView({behavior: 'smooth'});
+                } else if(targetEl) {
+                    targetEl.scrollIntoView({behavior: 'smooth'});
+                }
+            }
+            
+            document.querySelectorAll('aside nav a').forEach(l => {
+                l.classList.remove('bg-[#44d8f1]/10', 'text-[#44d8f1]', 'font-bold');
+                l.classList.add('text-[#dde3ed]/60');
+            });
+            link.classList.add('bg-[#44d8f1]/10', 'text-[#44d8f1]', 'font-bold');
+        });
+    });
+
+    // Add listener for help center
+    const helpLink = document.querySelector('a[onclick*="Loading Support Documentation"]');
+    if (helpLink) {
+        helpLink.removeAttribute('onclick');
+        helpLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openDeepDive('Help Center');
+        });
+    }
+
+    // Add listener for new intervention
+    const interventionBtn = document.querySelector('button[onclick*="intervention-modal"]');
+    if (interventionBtn) {
+        interventionBtn.removeAttribute('onclick');
+        interventionBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openDeepDive('New Intervention');
+        });
+    }
+
+    function notify(message) {
+        const toast = document.createElement('div');
+        toast.className = "fixed bottom-12 left-1/2 -translate-x-1/2 px-8 py-4 glass-panel border border-[#44d8f1]/30 rounded-2xl shadow-2xl z-[100] animate-in fade-in slide-in-from-bottom-10 duration-500 flex items-center gap-3";
+        toast.innerHTML = `
+            <span class="material-symbols-outlined text-[#44d8f1]">info</span>
+            <span class="text-sm font-bold text-[#dde3ed]">${message}</span>
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.add('animate-out', 'fade-out', 'slide-out-to-bottom-10');
+            setTimeout(() => toast.remove(), 500);
+        }, 3000);
+    }
+</script>
 </body></html>

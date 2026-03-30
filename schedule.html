@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Horizon | YouthLink</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <style>
+        body { background-color: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glow-teal { box-shadow: 0 0 30px rgba(13, 148, 136, 0.2); }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .active-class { border-left: 4px solid #0d9488; background: linear-gradient(90deg, rgba(13, 148, 136, 0.1) 0%, transparent 100%); }
+    </style>
+</head>
+<body class="p-6 md:p-12 lg:p-20">
+    <!-- Background Accents -->
+    <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-teal-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-sky-500/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <main class="max-w-7xl mx-auto space-y-12 relative z-10">
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+            <div class="space-y-4">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 text-[10px] font-black uppercase tracking-[0.3em]">
+                    <span class="material-symbols-outlined text-sm">auto_stories</span>
+                    Spring Semester 2026
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black font-headline tracking-tighter">Academic <span class="text-teal-400">Horizon</span></h1>
+                <p class="text-slate-400 text-lg">Operational flight path for <span class="text-white font-bold">Nature #2124</span></p>
+            </div>
+            
+            <div class="flex items-center gap-6 p-6 glass-panel rounded-[2rem]">
+                <div class="text-center">
+                    <p class="text-[10px] font-black text-slate-500 uppercase mb-1">Attendance</p>
+                    <span class="text-2xl font-black text-teal-400">92%</span>
+                </div>
+                <div class="w-[2px] h-10 bg-white/5"></div>
+                <div class="text-center">
+                    <p class="text-[10px] font-black text-slate-500 uppercase mb-1">Credits</p>
+                    <span class="text-2xl font-black text-white">18.0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Live Status Bar -->
+        <div class="w-full p-6 glass-panel rounded-3xl flex items-center justify-between border-l-4 border-l-teal-500 glow-teal">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-teal-500/20 flex items-center justify-center text-teal-400 animate-pulse">
+                    <span class="material-symbols-outlined">sensors</span>
+                </div>
+                <div>
+                    <h3 class="font-bold">Mathematics 101: Linear Algebra</h3>
+                    <p class="text-xs text-slate-400 uppercase tracking-widest mt-1">HALL 4B • LECTURE IN PROGRESS</p>
+                </div>
+            </div>
+            <div class="hidden md:flex flex-col items-end">
+                <span class="text-xs font-black text-teal-400">ENDS IN 18 MINS</span>
+                <div class="w-48 h-1.5 bg-slate-800 rounded-full mt-2 overflow-hidden">
+                    <div class="h-full bg-teal-500 w-[70%]"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Weekly Schedule Grid -->
+            <div class="lg:col-span-3 space-y-6">
+                <div class="flex items-center gap-4 mb-2">
+                    <button class="bg-teal-500 text-slate-900 px-6 py-2 rounded-xl text-sm font-black uppercase">Week View</button>
+                    <button class="text-slate-500 px-6 py-2 rounded-xl text-sm font-bold uppercase hover:text-white transition-colors">List View</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <!-- MON -->
+                    <div class="space-y-4">
+                        <span class="text-xs font-black text-slate-500 uppercase tracking-widest pl-2">Monday</span>
+                        <div class="space-y-3">
+                            <div class="p-4 glass-panel rounded-2xl border border-white/5 hover:border-teal-500/30 transition-all">
+                                <h4 class="text-sm font-bold">Physics II</h4>
+                                <p class="text-[10px] text-slate-500">09:00 - 10:30</p>
+                            </div>
+                            <div class="p-4 glass-panel rounded-2xl border border-white/5 active-class">
+                                <h4 class="text-sm font-bold">Math 101</h4>
+                                <p class="text-[10px] text-teal-400 font-bold">11:00 - 12:30</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- TUE -->
+                    <div class="space-y-4">
+                        <span class="text-xs font-black text-slate-600 uppercase tracking-widest pl-2">Tuesday</span>
+                        <div class="space-y-3">
+                            <div class="p-4 glass-panel rounded-2xl border border-white/5 opacity-40">
+                                <h4 class="text-sm font-bold">Data Struct.</h4>
+                                <p class="text-[10px] text-slate-500">14:00 - 16:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- WED -->
+                    <div class="space-y-4">
+                        <span class="text-xs font-black text-slate-500 uppercase tracking-widest pl-2">Wednesday</span>
+                        <div class="space-y-3">
+                            <div class="p-4 glass-panel rounded-2xl border border-teal-500/20 bg-teal-500/5">
+                                <h4 class="text-sm font-bold text-teal-400">Research Sem.</h4>
+                                <p class="text-[10px] text-slate-400">10:00 - 11:30</p>
+                            </div>
+                            <div class="p-4 glass-panel rounded-2xl border border-white/5">
+                                <h4 class="text-sm font-bold">Physics II</h4>
+                                <p class="text-[10px] text-slate-500">13:00 - 14:30</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- THU -->
+                    <div class="space-y-4">
+                        <span class="text-xs font-black text-slate-600 uppercase tracking-widest pl-2">Thursday</span>
+                        <div class="space-y-3">
+                            <div class="p-4 glass-panel rounded-2xl border border-white/5">
+                                <h4 class="text-sm font-bold">Data Struct.</h4>
+                                <p class="text-[10px] text-slate-500">09:00 - 11:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FRI -->
+                    <div class="space-y-4">
+                        <span class="text-xs font-black text-slate-500 uppercase tracking-widest pl-2">Friday</span>
+                        <div class="space-y-3">
+                            <div class="p-4 glass-panel rounded-2xl border border-rose-500/20 bg-rose-500/5">
+                                <h4 class="text-sm font-bold text-rose-400">Lab Segment</h4>
+                                <p class="text-[10px] text-slate-400">14:00 - 17:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar: Upcoming Deadlines -->
+            <div class="space-y-8">
+                <div class="p-8 glass-panel rounded-[2.5rem] space-y-6">
+                    <h3 class="font-bold flex items-center gap-2">
+                        <span class="material-symbols-outlined text-rose-500">notifications_active</span>
+                        High Stakes
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="relative pl-6 border-l border-white/10">
+                            <div class="absolute left-[-5px] top-0 w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(239,68,68,0.5)]"></div>
+                            <h4 class="text-sm font-bold">Data Structures Exam</h4>
+                            <p class="text-[10px] text-slate-500 uppercase mt-1">This Thursday • 09:00</p>
+                        </div>
+                        <div class="relative pl-6 border-l border-white/10">
+                            <div class="absolute left-[-5px] top-0 w-2 h-2 rounded-full bg-teal-500"></div>
+                            <h4 class="text-sm font-bold">Physics Submission</h4>
+                            <p class="text-[10px] text-slate-500 uppercase mt-1">March 31 • 23:59</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 glass-panel rounded-[2.5rem] bg-teal-500/5 border border-teal-500/20">
+                    <span class="material-symbols-outlined text-teal-400 mb-4">analytics</span>
+                    <h4 class="font-bold">Sync to Sanctuary</h4>
+                    <p class="text-xs text-slate-400 mt-2 leading-relaxed">This schedule is encrypted and synced with your Stress Mapper for automated recovery projections.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-20 pt-12 border-t border-white/5 text-center text-[10px] font-black text-slate-600 uppercase tracking-widest">
+        YouthLink Probative Digital Mentorship Framework • Operational 2026
+    </footer>
+</body>
+</html>

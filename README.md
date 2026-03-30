@@ -5,9 +5,9 @@
 ---
 
 ## 📌 Overview
-**YouthLink** is a comprehensive support system explicitly designed for adolescent mental health and emotional wellbeing. It bridges the critical gap between youth facing extreme academic/social pressures and established outreach organizations (like the Youngistaan Foundation). 
+**YouthLink** is a comprehensive support system explicitly designed for adolescent mental health and emotional wellbeing. It bridges the critical gap between youth facing extreme academic/social pressures and established outreach organizations. 🎯 **Mission**: Building a world where asking for help is a sign of strength, not a reason for fear.
 
-By providing anonymous help-seeking channels and early intervention mechanisms, YouthLink ensures that the 90% of youth in low-income settings who currently receive absolutely no psychiatric care finally have a safe, dynamic entry point to targeted support.
+By providing anonymous help-seeking channels and early intervention mechanisms, YouthLink ensures that the 90% of youth in low-income settings who currently receive absolutely no psychiatric care finally have a safe, dynamic entry point to targeted support. 
 
 ---
 
@@ -36,18 +36,24 @@ By providing anonymous help-seeking channels and early intervention mechanisms, 
 
 ---
 
-## 🚀 Problem Solving Impact
-
-| Problem Identified | YouthLink Solution |
-| :--- | :--- |
-| **No Safe Spaces** | Creates an anonymous, purely trusted digital environment natively styled to feel safe. |
-| **Resource Inaccessibility** | Places functional, accessible support directly into the hands of adolescents via mobile optimization. |
-| **Absence of Early Intervention** | Builds detection mechanisms designed exclusively for early warning sign triage. |
-| **NGO Visibility Gap** | Provides structured data dashboards globally required for impact monitoring and volunteer routing. |
+### 🛡️ For Mentors & NGOs (Mentor Portal Dashboard)
+- **Identity Verification:** Professional credentials sync with the platform’s secure API.
+- **Support Uplink:** Direct, end-to-end encrypted messaging with students in need.
+- **Triage Monitoring:** Automated alerts for high-risk emotional signatures.
 
 ---
 
-## 🏁 Automated Redirection Logic
-Upon a successful login, the system algorithm validates the user's operational role:
-- **Youth Login (User):** Bypasses standard routing and redirects instantly to the youth-friendly wellbeing toolset and safe space environment.
-- **Mentor Login (NGO):** Redirects seamlessly to the NGO Wellbeing Dashboard (Sentinel Portal) granting professional administrative oversight and data monitoring privileges.
+## 🛠️ Tech Stack & Architecture
+
+- **Frontend:** HTML5, CSS3, TailwindCSS (for the "Anti-Gravity" glassmorphic UI).
+- **Core Engine:** User Intelligence Engine (UIE) v4.0 (JavaScript).
+- **Security:** AES-256 local-only storage, Ctrl+Q Privacy Mode.
+- **Mentor Logic:** Real-time triage and NGO oversight protocols.
+
+---
+
+## 🚀 Key User Flows
+
+- **User Login:** Accesses the Private User Hub where they can journal, chat with AI, or connect with a human bridge.
+- **Mentor Login (NGO):** Redirects seamlessly to the NGO Wellbeing Dashboard (Mentor Portal) granting professional administrative oversight and data monitoring privileges.
+- **Emergency Protocol:** Instant access to global crisis lifelines from any page in the hub.
