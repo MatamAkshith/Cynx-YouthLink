@@ -55,22 +55,12 @@ const StudentSchedule = () => {
 
     // Run every 30 seconds for immediate hackathon demonstration
     const intervalId = setInterval(() => {
-      const now = new Date();
-      const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-      
-      // format current time as HH:MM
-      const currentHours = String(now.getHours()).padStart(2, '0');
-      const currentMinutes = String(now.getMinutes()).padStart(2, '0');
-      const currentTimeStr = `${currentHours}:${currentMinutes}`;
-
       let hasUpdates = false;
       const updatedEvents = events.map(event => {
-        // If event is today, has an end time, and hasn't been notified yet
-        if (event.date === todayStr && event.endTime && !event.notified) {
-          // If the current time is greater than the event's end time
-          if (currentTimeStr > event.endTime) {
-            // Trigger the check-in alert
-            window.alert(`Hey, you just finished your ${event.title} exam! Take a deep breath. How are you feeling about it?`);
+        if (event.endTime && !event.notified) {
+          const endDateTime = new Date(`${event.date}T${event.endTime}`);
+          if (new Date() > endDateTime) {
+            window.alert("Hey, you just finished your " + (event.subject || event.title) + " exam! How did it go?");
             hasUpdates = true;
             return { ...event, notified: true }; // Mark as notified
           }
